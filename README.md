@@ -1,64 +1,64 @@
-# Shoppify 🛒 — *Plataforma integral de e-commerce con gestión avanzada de usuarios y productos.*
+# Shoppify 🛒 — *Comprehensive e-commerce platform with advanced user and product management.*
 
-**Shoppify** es una aplicación construida con **Spring Boot** que permite gestionar una tienda online completa, incluyendo usuarios y sus permisos, catálogo de productos, ventas, métricas, y compras a proveedores para reabastecimiento de stock.
+**Shoppify** is an application built with **Spring Boot** that allows managing a complete online store, including users and their permissions, product catalog, sales, metrics, and supplier purchases for stock replenishment.
 
-## ✨ Características principales
+## ✨ Main features
 
-- 🔹 Gestión avanzada de usuarios con diferentes roles y permisos.
-- 🔹 Catálogo completo de productos con categorías, variantes y reseñas.
-- 🔹 Carrito de compras y proceso de checkout optimizado.
-- 🔹 Gestión de inventario con alertas de stock bajo.
-- 🔹 Compras a proveedores para reabastecimiento automático.
-- 🔹 Métricas y analíticas de ventas, productos y clientes.
-- 🔹 Sistema de promociones, cupones y descuentos.
-- 🔹 Generación de facturas y reportes en PDF.
+- 🔹 Advanced user management with different roles and permissions.
+- 🔹 Complete product catalog with categories, variants, and reviews.
+- 🔹 Shopping cart and optimized checkout process.
+- 🔹 Inventory management with low stock alerts.
+- 🔹 Supplier purchases for automatic replenishment.
+- 🔹 Sales, product, and customer analytics and metrics.
+- 🔹 Promotion, coupon, and discount system.
+- 🔹 Invoice and PDF report generation.
 
-## 🔧 Diseño y patrones aplicados
+## 🔧 Design and applied patterns
 
-Este proyecto tiene un enfoque profesional con el objetivo de aplicar distintos conceptos del ecosistema Spring Boot, como:
+This project has a professional approach with the goal of applying different concepts from the Spring Boot ecosystem, such as:
 
-- Arquitectura por capas (Controladores, Servicios, Repositorios).
-- Patrón DTO (Data Transfer Object) para la transferencia de datos entre capas.
-- Mapeo de objetos con MapStruct.
-- Validaciones con Hibernate Validator.
-- Manejo centralizado de excepciones.
-- Autenticación y autorización con Spring Security y JWT.
-- API RESTful con HATEOAS para mejorar la navegabilidad.
-- Documentación de API con OpenAPI/Swagger.
+- Layered architecture (Controllers, Services, Repositories).
+- DTO (Data Transfer Object) pattern for data transfer between layers.
+- Object mapping with MapStruct.
+- Validations with Hibernate Validator.
+- Centralized exception handling.
+- Authentication and authorization with Spring Security and JWT.
+- RESTful API with HATEOAS to improve navigability.
+- API documentation with OpenAPI/Swagger.
 
-## 🛠️ Tecnologías utilizadas
+## 🛠️ Technologies used
 
-| Tecnología              | Descripción                                     |
+| Technology              | Description                                     |
 |-------------------------|-------------------------------------------------|
-| Spring Boot 3.2.5       | Framework principal para backend                |
-| Java 21                 | Versión del lenguaje                            |
-| Spring Data JPA         | Persistencia de datos                           |
-| PostgreSQL              | Base de datos principal                         |
-| Spring Security         | Autenticación y autorización                    |
-| JWT                     | Tokens para autenticación                       |
-| Lombok                  | Reducción de código boilerplate                 |
-| MapStruct               | Mapeo automático entre objetos                  |
-| Hibernate Validator     | Validación de datos                             |
-| Hibernate Envers        | Auditoría de entidades                          |
-| Thymeleaf               | Motor de plantillas para emails                 |
-| OpenAPI/Swagger         | Documentación de API                            |
-| Spring HATEOAS          | Enlaces hipermedia para API REST                |
-| Docker                  | Contenedorización de la aplicación              |
+| Spring Boot 3.2.5       | Main backend framework                          |
+| Java 21                 | Language version                                |
+| Spring Data JPA         | Data persistence                                |
+| PostgreSQL              | Main database                                   |
+| Spring Security         | Authentication and authorization                |
+| JWT                     | Tokens for authentication                       |
+| Lombok                  | Boilerplate code reduction                      |
+| MapStruct               | Automatic object mapping                        |
+| Hibernate Validator     | Data validation                                 |
+| Hibernate Envers        | Entity auditing                                 |
+| Thymeleaf               | Template engine for emails                      |
+| OpenAPI/Swagger         | API documentation                               |
+| Spring HATEOAS          | Hypermedia links for REST API                   |
+| Docker                  | Application containerization                    |
 
-## 📁 Estructura del proyecto
+## 📁 Project structure
 ```plaintext
-Sin especificar = Implementado
-+ = A implementar.
-$$$ = Deseable (Baja prioridad)
-$$ = Deseable (Media prioridad)
-$ = Deseable (Alta prioridad)
+Unspecified = Implemented
++ = To be implemented
+$$$ = Desirable (Low priority)
+$$ = Desirable (Medium priority)
+$ = Desirable (High priority)
 
 
 
 org.shoppify
 │
 ├── config
-│   └── Configuraciones de la aplicación
+│   └── Application configurations
 │
 ├── controller
 │   ├── product
@@ -70,11 +70,11 @@ org.shoppify
 │   │   ├── UserController
 │   │   ├── RoleController
 │   │   ├── PermissionController
-│   │   ├── WishlistController (Intermedia usuario-producto) +
+│   │   ├── WishlistController (User-product intermediate) +
 │   ├── Transaction
-│   │   ├── ShippingController (Envios)
-│   │   ├── SupplierController (Nuevo purchase)
-│   │   ├── PurchaseController (Nuevo Sell)
+│   │   ├── ShippingController (Shipments)
+│   │   ├── SupplierController (New purchase)
+│   │   ├── PurchaseController (New Sell)
 │   │   ├── Transaction (Cart)
 
 │   ├── marketing
@@ -126,7 +126,7 @@ org.shoppify
 │   ├── payment
 │
 ├── util
-│   ├── Clases de utilidad
+│   ├── Utility classes
 ```
 
 ## Authors
@@ -134,8 +134,9 @@ org.shoppify
 - [@Newbie1337x](https://github.com/Newbie1337x)
 - [@joacoloool](https://github.com/joacoloool)
 - [@Lucasmdv](https://github.com/Lucasmdv)
+- [@rivatoDev](https://github.com/rivatoDev)
 
-## Búsquedas en filtros
+## Filter searches
 
-- Actualmente las búsquedas son insensibles a mayúsculas/minúsculas.
-- Para insensibilidad a acentos se recomienda habilitar la extensión `unaccent` en PostgreSQL o usar una columna normalizada de apoyo; no está habilitado por defecto.
+- Currently, searches are case-insensitive.
+- For accent insensitivity, it is recommended to enable the `unaccent` extension in PostgreSQL or use a normalized support column; it is not enabled by default.
