@@ -129,13 +129,6 @@ org.shoppify
 │   ├── Utility classes
 ```
 
-## Authors
-
-- [@Newbie1337x](https://github.com/Newbie1337x)
-- [@joacoloool](https://github.com/joacoloool)
-- [@Lucasmdv](https://github.com/Lucasmdv)
-- [@rivatoDev](https://github.com/rivatoDev)
-
 ## Filter searches
 
 - Currently, searches are case-insensitive.
