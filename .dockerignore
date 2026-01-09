@@ -1,0 +1,70 @@
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+bin/
+out/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+!/src/main/resources/application-secret.properties
+src/main/resources/application-secret.properties
+!/.env
+.env.*
+.env
+
+# --- Maven ---
+.mvn/
+mvnw
+mvnw.cmd
+
+# --- IDEs y Editores ---
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+.settings/
+.classpath
+.project
+.sts4-cache
+
+# --- Secretos y Configuración (---
+application-secret.properties
+.dockerignore
+
+# --- Documentación y Logs ---
+HELP.md
+README.md
+*.log
+tmp/
+
+# --- Archivos del Sistema ---
+.DS_Store
+Thumbs.db
