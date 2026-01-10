@@ -42,13 +42,12 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**", "/credentials/**", "/swagger-ui/**", "/swagger-ui.html",
-                                "/v3/api-docs/**", "/user/register")
-                        .permitAll()
-                        .requestMatchers(HttpMethod.POST, "/mercadopago/webhook", "/api/mercadopago/webhook").permitAll()
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/products/**", "/categories/**", "/stores/**", "/notifications").permitAll()
-                        .anyRequest().authenticated())
+    .requestMatchers("/auth/**", "/api/auth/**").permitAll()
+    .requestMatchers("/user/register", "/api/user/register").permitAll()
+    .requestMatchers(HttpMethod.GET, "/stores/**", "/api/stores/**").permitAll()
+    .requestMatchers(HttpMethod.GET, "/products/**", "/api/products/**").permitAll()
+    .anyRequest().authenticated()
+)
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .headers(h -> h.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
