@@ -8,7 +8,9 @@ import java.util.Objects;
 public final class AppEnvConfig {
 
     public static void loadEnv() {
-        Dotenv dotenv = Dotenv.load();
+        Dotenv dotenv = Dotenv.configure()
+            .ignoreIfMissing()
+            .load();
         System.setProperty("DB_URL", Objects.requireNonNull(dotenv.get("DB_URL")));
         System.setProperty("DB_USER", Objects.requireNonNull(dotenv.get("DB_USER")));
         System.setProperty("DB_PASSWORD", Objects.requireNonNull(dotenv.get("DB_PASSWORD")));
