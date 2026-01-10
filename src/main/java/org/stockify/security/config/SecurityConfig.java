@@ -46,6 +46,8 @@ public class SecurityConfig {
     .requestMatchers("/user/register", "/api/user/register").permitAll()
     .requestMatchers(HttpMethod.GET, "/stores/**", "/api/stores/**").permitAll()
     .requestMatchers(HttpMethod.GET, "/products/**", "/api/products/**").permitAll()
+    .requestMatchers(HttpMethod.POST, "/mercadopago/webhook").permitAll()
+    .requestMatchers("/mercadopago/**").authenticated()
     .anyRequest().authenticated()
 )
                 .cors(Customizer.withDefaults())
