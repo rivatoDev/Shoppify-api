@@ -11,9 +11,7 @@ public final class AppEnvConfig {
         Dotenv dotenv = Dotenv.configure()
             .ignoreIfMissing()
             .load();
-        System.setProperty("DB_URL", Objects.requireNonNull(dotenv.get("DB_URL")));
-        System.setProperty("DB_USER", Objects.requireNonNull(dotenv.get("DB_USER")));
-        System.setProperty("DB_PASSWORD", Objects.requireNonNull(dotenv.get("DB_PASSWORD")));
+        System.setProperty("DATABASE_URL", Objects.requireNonNull(dotenv.get("DATABASE_URL")));
         System.setProperty("JWT_SECRET", Objects.requireNonNull(dotenv.get("JWT_SECRET")));
         System.setProperty("JWT_EXPIRATION", Objects.requireNonNull(dotenv.get("JWT_EXPIRATION")));
         System.setProperty("EMAIL_HOST", Objects.requireNonNull(dotenv.get("EMAIL_HOST")));
