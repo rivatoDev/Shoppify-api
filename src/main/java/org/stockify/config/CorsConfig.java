@@ -16,5 +16,13 @@ public class CorsConfig implements WebMvcConfigurer {
                 .allowCredentials(false)
                 .maxAge(3600);
     }
-}
 
+    @Bean
+    public securityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .cors()
+            .and()
+            .csrf().disable();
+        return http.build()
+    }
+}
