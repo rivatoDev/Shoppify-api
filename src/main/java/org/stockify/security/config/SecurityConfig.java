@@ -1,5 +1,6 @@
 package org.stockify.security.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -19,6 +20,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.stockify.config.CorsConfig;
 import org.stockify.security.filter.JwtAuthenticationFilter;
 import org.stockify.security.filter.RestAuthenticationEntryPoint;
 
@@ -32,7 +34,7 @@ public class SecurityConfig {
     private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
     public SecurityConfig(UserDetailsService userDetailsService, JwtAuthenticationFilter jwtAuthenticationFilter,
-            RestAuthenticationEntryPoint restAuthenticationEntryPoint) {
+                          RestAuthenticationEntryPoint restAuthenticationEntryPoint, CorsConfig corsConfig) {
         this.userDetailsService = userDetailsService;
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.restAuthenticationEntryPoint = restAuthenticationEntryPoint;
@@ -41,23 +43,27 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests(auth -> auth
-    .requestMatchers("/auth/**", "/api/auth/**").permitAll()
-    .requestMatchers("/user/register", "/api/user/register").permitAll()
-    .requestMatchers(HttpMethod.GET, "/stores/**", "/api/stores/**").permitAll()
-    .requestMatchers(HttpMethod.GET, "/products/**", "/api/products/**").permitAll()
-    .requestMatchers(HttpMethod.POST, "/mercadopago/webhook").permitAll()
-    .requestMatchers("/mercadopago/**").authenticated()
-    .anyRequest().authenticated()
-)
-                .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
-                .headers(h -> h.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
-                .sessionManagement(m -> m.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                .cors(cors -> {})
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/auth/**", "/api/auth/**").permitAll()
+                        .requestMatchers("/user/register", "/api/user/register").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/stores/**", "/api/stores/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/products/**", "/api/products/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/mercadopago/webhook").permitAll()
+                        .requestMatchers("/mercadopago/**").authenticated()
+                        .anyRequest().authenticated()
+                )
+                .exceptionHandling(ex -> ex.authenticationEntryPoint(restAuthenticationEntryPoint));
+
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-        http.exceptionHandling(ex -> ex.authenticationEntryPoint(restAuthenticationEntryPoint));
+
         return http.build();
     }
+
+
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
