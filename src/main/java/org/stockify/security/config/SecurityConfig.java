@@ -53,6 +53,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/stores/**", "/api/stores/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/products/**", "/api/products/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/mercadopago/webhook").permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/mercadopago/**").authenticated()
                         .anyRequest().authenticated()
                 )
