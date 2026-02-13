@@ -18,7 +18,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;    
 import org.stockify.security.filter.JwtAuthenticationFilter;
 import org.stockify.security.filter.RestAuthenticationEntryPoint;
 
@@ -31,31 +31,36 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
-    public SecurityConfig(UserDetailsService userDetailsService, JwtAuthenticationFilter jwtAuthenticationFilter,
-            RestAuthenticationEntryPoint restAuthenticationEntryPoint) {
+    public SecurityConfig(
+        UserDetailsService userDetailsService, 
+        JwtAuthenticationFilter jwtAuthenticationFilter,
+        RestAuthenticationEntryPoint restAuthenticationEntryPoint) {
         this.userDetailsService = userDetailsService;
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.restAuthenticationEntryPoint = restAuthenticationEntryPoint;
     }
 
-    @Bean
+     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests(auth -> auth
-    .requestMatchers("/auth/**", "/api/auth/**").permitAll()
-    .requestMatchers("/user/register", "/api/user/register").permitAll()
-    .requestMatchers(HttpMethod.GET, "/stores/**", "/api/stores/**").permitAll()
-    .requestMatchers(HttpMethod.GET, "/products/**", "/api/products/**").permitAll()
-    .requestMatchers(HttpMethod.POST, "/mercadopago/webhook").permitAll()
-    .requestMatchers("/mercadopago/**").authenticated()
-    .anyRequest().authenticated()
-)
-                .cors(Customizer.withDefaults())
+                .cors(Customizer.withDefaults())  
                 .csrf(AbstractHttpConfigurer::disable)
-                .headers(h -> h.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
-                .sessionManagement(m -> m.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/auth/**", "/api/auth/**").permitAll()
+                        .requestMatchers("/user/register", "/api/user/register").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/stores/**", "/api/stores/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/products/**", "/api/products/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/mercadopago/webhook").permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers("/mercadopago/**").authenticated()
+                        .anyRequest().authenticated()
+                )
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .exceptionHandling(ex -> ex.authenticationEntryPoint(restAuthenticationEntryPoint));
+
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-        http.exceptionHandling(ex -> ex.authenticationEntryPoint(restAuthenticationEntryPoint));
+
         return http.build();
     }
 
